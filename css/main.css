@@ -3,11 +3,63 @@
 }
 
 html, body {
-	font-family: Helvetica, Arial, sans-serif;
+	color: #222222;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; 
 	font-size: 16px;
+	line-height: 1.5em;
+	background-color: #FEFEFE;
 	padding: 0;
 }
 
 p {
 	margin: 15px 0;
+}
+
+h1, 
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: #A93863;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+	font-weight: 300;
+	letter-spacing: 1px;
+}
+
+#header-bar h1 {
+	color: #EFEFEF;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: 100;
+	letter-spacing: 1px;
+}
+
+.ui-bar {
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+	color: white;
+	background-color: #25234A;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+.ui-header .ui-title, 
+.ui-footer .ui-title {
+	font-size: 28px;
+	margin: .3em 30% .4em;
+}
+
+.ui-footer {
+	height: 50px;
+	background-color: #262626;
+}
+
+.ui-footer a {
+	color: #EFEFEF;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+
+.btn-active {
+	height: 50px;
+	background-color: #D88A35;
 }
