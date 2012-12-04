@@ -1,40 +1,33 @@
-#This script parses html or xml and returns event info in JSON format
+#This script parses html from events.berkeley.edu and returns event info in JSON format
+#Runs in python 2.7*
+
 from lxml import html
 from lxml import etree
-
-dates = parsedObj.xpath('//item/title/text()')
-names = []
-counter = 0
 
 source = "http://events.berkeley.edu/index.php?view=summary&timeframe=month&date=2012-12-03&tab=all_events"
 origin = "UC_Berkeley"
 parsedObj = html.parse(source)
 
+#Get data for database from parsedObj
 names = parsedObj.xpath('//div/h3/a/text()')
+ids=[]
+for i in range(len(names)): ids.append(i)dates = parsedObj.xpath("//*[@id='content']/div/p[1]/text()")
+description = parsedObj.xpath("//*[@id='content']/div/p[3]/text()")
+#coming soon: location
+#coming soon: URL
+
+#Normalize names
 for i in range(len(names)):
     list1[i]=list1[i].strip()
     try:names.remove("")
     except:pass
-description = parsedObj.xpath("//*[@id='content']/div/p[3]/text()")
-
-dates = parsedObj.xpath("//*[@id='content']/div/p[1]/text()")
 
 #normalize dates
 for i in dates:
     x = i.replace('\t','')
     dates[dates.index(i)] = x.replace('\n','')
 
-
-print(dates)
-print(names)
-
-descriptions = parsedObj.xpath("//item/description/text()")
-print (descriptions)
-
-##links = parsedObj.xpath("//item/link/")
-ids=[]
-for i in range(len(names)): ids.append(i)
-    
+#### Note: JSON will be replaced by CSV formatting in next update   
 eventData = []
 def formatJSON(names,dates,descriptions,origin):
     for i in range(len(ids)):
