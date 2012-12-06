@@ -75,6 +75,7 @@ h6 {
 	width: 55%;
 	border: 1px solid #CFCFCF;
 	margin: 0;
+	margin-bottom: 16px;
 	background-color: white;
 	background-image: url('../images/icon-search.png');
 	background-repeat: no-repeat;
@@ -84,7 +85,14 @@ h6 {
 
 #search-button {
 	height: 35px;
-	margin: 0 5px 20px;
+}
+
+.search-btn {
+	opacity: .5;
+	margin: 0;
+	background-color: #6F5A85;
+	border: 1px solid black;
+	float: right;
 }
 
 .ui-navbar li {
@@ -97,18 +105,12 @@ h6 {
 	background-image: url('../images/icon-filter.png');
 	background-repeat: no-repeat;
 	background-position: center center;
-	background-color: #CCCCCC;
+	background-color: #494977;
 	top: 11px;
 	right: 45px;
 }
 
-.search-btn {
-	opacity: .5;
-	margin: 0;
-	background-color: #6F5A85;
-	border: 1px solid black;
-	float: right;
-}
+
 
 .ui-listview {
 	margin: 0 !important;
