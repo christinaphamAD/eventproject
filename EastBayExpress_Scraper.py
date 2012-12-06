@@ -8,20 +8,29 @@ source = "http://www.eastbayexpress.com/ebx/EventSearch?sortType=title&gpt=1&gpt
 origin = "EastBayExpress"
 parsedObj = html.parse(source)
 
-###Get data for database from parsedObj
-##names = parsedObj.xpath('//div/h3/a/text()')
-##ids=[]
-##for i in range(len(names)): ids.append(i)dates = parsedObj.xpath("//*[@id='content']/div/p[1]/text()")
-##description = parsedObj.xpath("//*[@id='content']/div/p[3]/text()")
-###coming soon: location
-###coming soon: URL
+#Get data for database from parsedObj
+names = parsedObj.xpath('//*[@class="listing"]/h3/a/text()')
+ids=[]
+for i in range(len(names)): ids.append(i)
+##dates = parsedObj.xpath("//*[@id='content']/div/p[1]/text()")
+description = parsedObj.xpath('//*[@class="listing"]/div/text()')
+#coming soon: location
+links = parsedObj.xpath('//*[@class="listing"]/h3/a/@href')
+dates = parsedObj.xpath('//*[@class="listing"]/text()[preceding::br]')
+
 ##
-###Normalize names
-##for i in range(len(names)):
-##    list1[i]=list1[i].strip()
-##    try:names.remove("")
-##    except:pass
-##
+#Normalize names
+def normalize(someList):
+    for i in someList:
+        someList[someList.index(i)]=i.strip()
+        try: someList.remove("")
+        except:pass
+    return someList
+
+names = normalize(names)
+description = normalize(description)
+dates = normalize(normalize(normalize(dates)))
+
 ###normalize dates
 ##for i in dates:
 ##    x = i.replace('\t','')
