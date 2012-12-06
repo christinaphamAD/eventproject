@@ -15,6 +15,11 @@ p {
 	margin: 15px 0;
 }
 
+a {
+	color: #6F5A85;
+	font-weight: bold;
+}
+
 h1, 
 h2,
 h3,
@@ -62,4 +67,16 @@ h6 {
 .btn-active {
 	height: 50px;
 	background-color: #D88A35;
+}
+
+.ui-input-search {
+	width: 55%;
+	border: 1px solid #CFCFCF;
+	float: left;
+}
+
+.search-btn {
+	background-color: #CCCCCC;
+	border: 1px solid black;
+	float: right;
 }

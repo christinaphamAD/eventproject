@@ -8721,7 +8721,7 @@ $( document ).bind( "pagecreate create", function( e ) {
 			disablePageZoom: true,
 			transition: "slide", //can be none, fade, slide (slide maps to slideup or slidedown)
 			fullscreen: false,
-			tapToggle: true,
+			tapToggle: false,
 			tapToggleBlacklist: "a, button, input, select, textarea, .ui-header-fixed, .ui-footer-fixed, .ui-popup",
 			hideDuringFocus: "input, textarea, select",
 			updatePagePadding: true,
