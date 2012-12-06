@@ -57,7 +57,7 @@ h6 {
 
 .ui-footer {
 	height: 50px;
-	background-color: #262626;
+	background-color: #333333;
 }
 
 .ui-footer a {
@@ -110,7 +110,11 @@ h6 {
 	right: 45px;
 }
 
-
+div li .ui-btn-text {
+	margin-top: 5px;
+	display:block;
+	font-weight: bold;
+}
 
 .ui-listview {
 	margin: 0 !important;
@@ -120,14 +124,18 @@ h6 {
 	background-color: #CCCCCC;
 }
 
+.test-map {
+	background-color: yellow;
+}
+
 #map {
 	background-image: url('../images/icon-map.png');
 	background-repeat: no-repeat;
-	background-position: center center;
+	background-position: center 1px;
 }
 
 #list {
 	background-image: url('../images/icon-list.png');
 	background-repeat: no-repeat;
-	background-position: center center;
+	background-position: center 1px;
 }
