@@ -8,6 +8,8 @@
 
 <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 <script src="js/jquery.mobile.js"></script>
+<script src="js/locations.js"></script>
+
 </head>
 
 <body>
@@ -20,22 +22,13 @@
 	</div>
 
 	<div data-role="content" data-theme="a">
-		<div>
+		<div id="search-fields">
 			<input type="search" name="search-mini" id="address" value placeholder="Search" />
 			<input type="button" id="search-button" value="Search" data-inline="true" class="search-btn" />
 		</div>
 		<div style="margin-top:20px;">
 			<h2>Results for 'placeholder'</h2>
-			<ul data-role="listview">
-				<li><a href="acura.html">Acura</a></li>
-				<li><a href="audi.html">Audi</a></li>
-				<li><a href="bmw.html">BMW</a></li>
-				<li><a href="acura.html">Acura</a></li>
-				<li><a href="audi.html">Audi</a></li>
-				<li><a href="bmw.html">BMW</a></li>
-				<li><a href="acura.html">Acura</a></li>
-				<li><a href="audi.html">Audi</a></li>
-				<li><a href="bmw.html">BMW</a></li>
+			<ul data-role="listview" class="list-results">
 			</ul>
 		</div>
 	</div><!-- /content -->
@@ -49,6 +42,21 @@
 		</div>
 	</div>
 </div>
+<script>
 
+$( ".search-btn" ).bind( "click", function(event, ui) {
+  	for (var i = 0; i < sites.length; i++) {
+
+  		var eventSpot = sites[i];
+
+    	var content = '<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-last ui-btn-up-a" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="a">'+ 
+			'<div class="ui-btn-inner ui-li">'+ 
+			'<div class="ui-btn-text">'+'<div class="list-item">'+'<h4>'+eventSpot[0]+'</h4>'+ '<p>'+eventSpot[4]+'</p>'+'</div>'+'</div>'+'<span class="ui-icon ui-icon-arrow-r ui-icon-shadow">'+'</span>'+'</div>'+'</li>'; 
+    	$('.list-results').append($(content));
+	}
+});
+
+
+</script>
 </body>
 </html>

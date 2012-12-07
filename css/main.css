@@ -130,7 +130,6 @@ h6 {
 div li .ui-btn-text {
 	margin-top: 5px;
 	display:block;
-	font-weight: bold;
 }
 
 .ui-listview {
@@ -138,7 +137,15 @@ div li .ui-btn-text {
 }
 
 .ui-li {
-	background-color: #CCCCCC;
+	background-color: #EFEFEF;
+}
+
+.list-item {
+	padding-right: 40px;
+    padding: 0.7em 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .vote {

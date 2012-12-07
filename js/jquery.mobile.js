@@ -6232,12 +6232,9 @@ $.widget( "mobile.button", $.mobile.widget, {
 			[ $el.html() ? "html" : "text" ]( $el.html() || $el.val() )
 			.insertBefore( $el )
 			.buttonMarkup({
-				theme: o.theme,
 				icon: o.icon,
 				iconpos: o.iconpos,
 				inline: inline,
-				corners: o.corners,
-				shadow: o.shadow,
 				iconshadow: o.iconshadow,
 				mini: mini
 			})
@@ -8058,8 +8055,6 @@ $.widget( "mobile.selectmenu", $.mobile.widget, {
 					icon: options.icon,
 					iconpos: iconpos,
 					inline: inline,
-					corners: options.corners,
-					shadow: options.shadow,
 					iconshadow: options.iconshadow,
 					mini: mini
 				});
