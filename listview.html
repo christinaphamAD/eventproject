@@ -27,7 +27,7 @@
 			<input type="button" id="search-button" value="Search" data-inline="true" class="search-btn" />
 		</div>
 		<div style="margin-top:20px;">
-			<h2>Results for 'placeholder'</h2>
+			<h2 class="search-results"></h2>
 			<ul data-role="listview" class="list-results">
 			</ul>
 		</div>
@@ -45,6 +45,9 @@
 <script>
 
 $( ".search-btn" ).bind( "click", function(event, ui) {
+	// var resultsHead = 'Results for '+ $('#address').val() +' ';
+	$('.search-results').empty().append($('#address').val());
+
   	for (var i = 0; i < sites.length; i++) {
 
   		var eventSpot = sites[i];

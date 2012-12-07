@@ -148,6 +148,10 @@ div li .ui-btn-text {
     white-space: nowrap;
 }
 
+.list-item p {
+	margin: 0;
+}
+
 .vote {
 	width: 30px;
 	height: 30px;
