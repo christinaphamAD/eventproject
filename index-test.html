@@ -8,7 +8,7 @@
 
 <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 <script src="js/jquery.mobile.js"></script>
-<script src="js/locations.js"></script>
+<!-- <script src="js/locations.js"></script> -->
 <!-- <script src="js/infobox.js"></script>
 <script src="js/markercluster.js"></script> -->
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.exp&sensor=false"></script>
@@ -18,6 +18,8 @@ var infowindow = null;
 
     var geocoder;
     var map;
+    var markerList = [];
+    var sites;
     function initialize() {
       geocoder = new google.maps.Geocoder();
       var latlng = new google.maps.LatLng(37.8656259, -122.253672);
@@ -30,33 +32,26 @@ var infowindow = null;
 
       map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 
-      setMarkers(map, sites);
+      //setMarkers(map, sites);
       infowindow = new google.maps.InfoWindow({
               content: "loading..."
       });
     }
 
     function setMarkers(map, markers) {
+        for (var i=0; i<markerList.length; i++) {
+          markerList[i].setMap(null);
+        }
+
+        markerList.length=0;
 
         for (var i = 0; i < markers.Locations.length; i++) {
             var sites = markers.Locations[i];
             var contentString = 
-              '<div id="infoWin">'+
-            '<div id="siteNotice">'+
-            '</div>'+
-            '<h3 class="infoWin-head">'+ sites[1] + '</h3>'+
-            '<div class="infoWin-content">'+
-              '<p>' + sites[2] + '</p>' + 
-            '</div>'+
-            '<div>' +
-              '<div>' + 
-                '<span class="up-btn vote"></span>' + 
-              '</div>' + 
-              '<div>' + 
-                '<span class="down-btn vote"></span>' +
-              '</div>' +
-            '</div>' +
-            '</div>';
+              '<div id="infoWin"><div id="siteNotice"></div><h5 class="infoWin-head">'+ sites[1] + '</h5><div class="infoWin-website"><a href="'+ sites[4] + '" target="_blank">Website</a></div><div class="infoWin-content"><p><strong>Address:</strong> ' + sites[8] + '</p><p><strong>Cost:</strong> ' + (sites[11]!=="0.00" ? '$'+sites[11] : 'Free') + '</p><p>' + sites[2] + '</p></div><div>' +
+              '<span class="up-btn vote" data-id="'+sites[0]+'" id="up' + sites[0] + '">+'+(sites[9]!==null ? sites[9] : 0)+'</span>' + 
+              '<span class="down-btn vote" data-id="'+sites[0]+'" id="down' + sites[0] + '">-'+(sites[10]!==null ? sites[10] : 0)+'</span>' +
+            '</div></div>';
             var siteLatLng = new google.maps.LatLng(sites[12], sites[13]);
             var marker = new google.maps.Marker({
                 position: siteLatLng,
@@ -65,6 +60,33 @@ var infowindow = null;
                 zIndex: sites[0]+1,
                 html: contentString
             });
+            markerList.push(marker);
+
+            // VOTING BUTTONS 
+            $('#up'+sites[0]).bind('click', function(event, ui){
+              var button = this;
+              $.ajax({
+                url:'http://www.asian-central.com:8080/'+sites[0]+'/up', 
+                dataType:"jsonp",
+                success:function(data){
+                  // Make sure it runs on the 8080 port and that it uses
+                  // JSONP format for voting
+                }
+              })
+            });
+
+            $('#down'+sites[0]).bind('click', function(event, ui){
+              var button = this;
+              $.ajax({
+                url:'http://www.asian-central.com:8080/'+sites[0]+'/down', 
+                dataType:"jsonp",
+                success:function(data){
+                  // Make sure it runs on the 8080 port and that it uses
+                  // JSONP format for voting
+                }
+              })
+            });
+
 
             google.maps.event.addListener(marker, "click", function () {
                 infowindow.setContent(this.html);
@@ -73,15 +95,15 @@ var infowindow = null;
         }
     }
 
-    function codeAddress(address) {
-        geocoder.geocode( { 'address': address}, function(results, status) {
-          if (status == google.maps.GeocoderStatus.OK) {
-            map.setCenter(results[0].geometry.location);
-          } else {
-            alert('Geocode was not successful for the following reason: ' + status);
-          }
-        });
-      };
+    // function codeAddress(address) {
+    //     geocoder.geocode( { 'address': address}, function(results, status) {
+    //       if (status == google.maps.GeocoderStatus.OK) {
+    //         map.setCenter(results[0].geometry.location);
+    //       } else {
+    //         alert('Geocode was not successful for the following reason: ' + status);
+    //       }
+    //     });
+    //   };
 </script>
 
 </head>
@@ -146,22 +168,28 @@ $(document).on('pageinit',function(){
   $( ".search-btn" ).bind( "click", function(event, ui) {
     var refBtn = $(this).data("ref");
     var queryTerm = $('#address'+refBtn).val()
-    codeAddress(queryTerm);
-    var resultsHead = 'Results for "'+ queryTerm +'"';
-    $('.search-results').empty().append(resultsHead);
+    $.ajax({
+      url:'http://asian-central.com:8080/json/s/'+queryTerm, 
+      dataType: "jsonp",
+      success:function(data){
+        console.log(data);
+        sites = data;
+        // codeAddress(queryTerm);
+        var resultsHead = 'Results for "'+ queryTerm +'"';
 
-    $('.list-results').empty();
+        $('.search-results').empty().append(resultsHead);
+        $('.list-results').empty();
 
-    for (var i = 0; i < sites.Locations.length; i++) {
-
-      var eventSpot = sites.Locations[i];
-
-      var content = '<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-last ui-btn-up-a" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="a">'+ 
-      '<div class="ui-btn-inner ui-li">'+ 
-      '<div class="ui-btn-text">'+'<div class="list-item">'+'<h4>'+eventSpot[1]+'</h4>'+ '<p>'+eventSpot[2]+'</p>'+'</div>'+'</div>'+'<span class="ui-icon ui-icon-arrow-r ui-icon-shadow">'+'</span>'+'</div>'+'</li>'; 
-      $('.list-results').append($(content));
-    }
+        for (var i = 0; i < sites.Locations.length; i++) {
+          var eventSpot = sites.Locations[i];
+          var content = '<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-last ui-btn-up-a" data-corners="false" data-shadow="false" data-iconshadow="true" data-icon="arrow-r" data-iconpos="right" data-theme="a">'+'<h4>'+eventSpot[1]+'</h4>'+ '<p>'+eventSpot[2]+'</p>'+'<span class="ui-icon ui-icon-arrow-r ui-icon-shadow">'+'</span>'+'</li>'; 
+          $('.list-results').append($(content));
+        }
+        setMarkers(map, sites);
+      }
+    });
   });
+
 
   $('#map2').bind("click", function(event, ui){
     $('#address1').val($('#address2').val());
