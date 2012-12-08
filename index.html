@@ -16,48 +16,35 @@
 var infowindow = null;
     $(document).ready(function () { initialize();  });
 
-  //   function initialize() {
+    function initialize() {
 
-  //       var centerMap = new google.maps.LatLng(39.828175, -98.5795);
+        var centerMap = new google.maps.LatLng(39.828175, -98.5795);
 
-  //       var myOptions = {
-  //           zoom: 6,
-  //           center: centerMap,
-  //           mapTypeId: google.maps.MapTypeId.ROADMAP
-  //       }
-
-  //       var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-
-  //       setMarkers(map, sites);
-	 //    infowindow = new google.maps.InfoWindow({
-  //               content: "loading..."
-  //           });
-
-  //       var bikeLayer = new google.maps.BicyclingLayer();
-		// bikeLayer.setMap(map);
-
-
-  //   }
-
-  		var geocoder;
-      var map;
-      function initialize() {
-        geocoder = new google.maps.Geocoder();
-        var latlng = new google.maps.LatLng(-34.397, 150.644);
-
-        var mapOptions = {
-          zoom: 11,
-          center: latlng,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
+        var myOptions = {
+            zoom: 4,
+            center: centerMap,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
         }
 
-        map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+        var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
         setMarkers(map, sites);
 	    infowindow = new google.maps.InfoWindow({
                 content: "loading..."
             });
-      }
+
+        var bikeLayer = new google.maps.BicyclingLayer();
+		bikeLayer.setMap(map);
+    }
+
+    var sites = [
+	['Mount Evans', 39.58108, -105.63535, 4, 'This is Mount Evans.'],
+	['Irving Homestead', 40.315939, -105.440630, 2, 'This is the Irving Homestead.'],
+	['Badlands National Park', 43.785890, -101.90175, 1, 'This is Badlands National Park'],
+	['Flatirons in the Spring', 39.99948, -105.28370, 3, 'These are the Flatirons in the spring.']
+];
+
+
 
     function setMarkers(map, markers) {
 
@@ -72,46 +59,115 @@ var infowindow = null;
                 html: sites[4]
             });
 
-        // var ib = new InfoBox(myOptions);
-        // ib.open(theMap, marker);
-
-            var contentString = 
-	            '<div id="infoWin">'+
-	    			'<div id="siteNotice">'+
-	    			'</div>'+
-	    			'<h3 class="infoWin-head">'+ sites[0] + '</h3>'+
-	    			'<div class="infoWin-content">'+
-			    		'<p>' + sites[4] + '</p>' + 
-			    	'</div>'+
-			    	'<div>' +
-			    		'<div>' + 
-			    			'<span class="up-btn vote"></span>' + 
-			    		'</div>' + 
-			    		'<div>' + 
-			    			'<span class="down-btn vote"></span>' +
-			    		'</div>' +
-			    	'</div>' +
-			    '</div>';
-
+            var contentString = "Some content";
 
             google.maps.event.addListener(marker, "click", function () {
-                // alert(this.html);
-                infowindow.setContent(contentString);
+                alert(this.html);
+                infowindow.setContent(this.html);
                 infowindow.open(map, this);
             });
         }
     }
 
-    function codeAddress() {
-        var address = document.getElementById('address').value;
-        geocoder.geocode( { 'address': address}, function(results, status) {
-          if (status == google.maps.GeocoderStatus.OK) {
-            map.setCenter(results[0].geometry.location);
-          } else {
-            alert('Geocode was not successful for the following reason: ' + status);
-          }
-        });
-      }
+// var infowindow = null;
+// $(document).ready(function () { initialize();  });
+
+//   //   function initialize() {
+
+//   //       var centerMap = new google.maps.LatLng(39.828175, -98.5795);
+
+//   //       var myOptions = {
+//   //           zoom: 6,
+//   //           center: centerMap,
+//   //           mapTypeId: google.maps.MapTypeId.ROADMAP
+//   //       }
+
+//   //       var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+//   //       setMarkers(map, sites);
+// 	 //    infowindow = new google.maps.InfoWindow({
+//   //               content: "loading..."
+//   //           });
+
+//   //       var bikeLayer = new google.maps.BicyclingLayer();
+// 		// bikeLayer.setMap(map);
+
+
+//   //   }
+
+// var geocoder;
+// var map;
+// function initialize() {
+// 	geocoder = new google.maps.Geocoder();
+// 	var latlng = new google.maps.LatLng(-34.397, 150.644);
+
+// 	var mapOptions = {
+// 	  zoom: 11,
+// 	  center: latlng,
+// 	  mapTypeId: google.maps.MapTypeId.ROADMAP
+// 	}
+
+// 	map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+
+// 	setMarkers(map, sites);
+// 	infowindow = new google.maps.InfoWindow({
+// 	        content: "loading..."
+// 	});
+// }
+
+//     function setMarkers(map, markers) {
+
+//         for (var i = 0; i < markers.length; i++) {
+//             var sites = markers[i];
+//             var siteLatLng = new google.maps.LatLng(sites[1], sites[2]);
+//             var marker = new google.maps.Marker({
+//                 position: siteLatLng,
+//                 map: map,
+//                 title: sites[0],
+//                 zIndex: sites[3],
+//                 html: sites[4]
+//             });
+
+//         // var ib = new InfoBox(myOptions);
+//         // ib.open(theMap, marker);
+
+//             var contentString = 
+// 	            '<div id="infoWin">'+
+// 	    			'<div id="siteNotice">'+
+// 	    			'</div>'+
+// 	    			'<h3 class="infoWin-head">'+ sites.Locations[0][1] + '</h3>'+
+// 	    			'<div class="infoWin-content">'+
+// 			    		'<p>' + sites.Locations[0][3] + '</p>' + 
+// 			    	'</div>'+
+// 			    	'<div>' +
+// 			    		'<div>' + 
+// 			    			'<span class="up-btn vote"></span>' + 
+// 			    		'</div>' + 
+// 			    		'<div>' + 
+// 			    			'<span class="down-btn vote"></span>' +
+// 			    		'</div>' +
+// 			    	'</div>' +
+// 			    '</div>';
+
+
+//             google.maps.event.addListener(marker, "click", function () {
+//                 // alert(this.html);
+//                 infowindow.setContent(contentString);
+//                 infowindow.open(map, this);
+//             });
+//         }
+//     }
+
+//     function codeAddress() {
+//         var address = document.getElementById('address').value;
+//         geocoder.geocode( { 'address': address}, function(results, status) {
+//           if (status == google.maps.GeocoderStatus.OK) {
+//             map.setCenter(results[0].geometry.location);
+//           } else {
+//             alert('Geocode was not successful for the following reason: ' + status);
+//           }
+//         });
+//       }
 </script>
 
 </head>

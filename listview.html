@@ -42,25 +42,27 @@
 		</div>
 	</div>
 </div>
-<script>
+<script type="text/javascript">
+$(document).on('pageinit',function(){
 
-$( ".search-btn" ).bind( "click", function(event, ui) {
-	// var resultsHead = 'Results for '+ $('#address').val() +' ';
-	$('.search-results').empty().append($('#address').val());
-	
-	$('.list-results').empty();
+	$( ".search-btn" ).bind( "click", function(event, ui) {
+		var resultsHead = 'Results for "'+ $('#address').val() +'"';
+		$('.search-results').empty().append(resultsHead);
 
-  	for (var i = 0; i < sites.length; i++) {
+		$('.list-results').empty();
 
-  		var eventSpot = sites[i];
+	  	for (var i = 0; i < sites.Locations.length; i++) {
 
-    	var content = '<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-last ui-btn-up-a" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="a">'+ 
-			'<div class="ui-btn-inner ui-li">'+ 
-			'<div class="ui-btn-text">'+'<div class="list-item">'+'<h4>'+eventSpot[0]+'</h4>'+ '<p>'+eventSpot[4]+'</p>'+'</div>'+'</div>'+'<span class="ui-icon ui-icon-arrow-r ui-icon-shadow">'+'</span>'+'</div>'+'</li>'; 
-    	$('.list-results').append($(content));
-	}
+	  		var eventSpot = sites.Locations[i];
+
+	    	var content = '<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-last ui-btn-up-a" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right" data-theme="a">'+ 
+				'<div class="ui-btn-inner ui-li">'+ 
+				'<div class="ui-btn-text">'+'<div class="list-item">'+'<h4>'+eventSpot[1]+'</h4>'+ '<p>'+eventSpot[2]+'</p>'+'</div>'+'</div>'+'<span class="ui-icon ui-icon-arrow-r ui-icon-shadow">'+'</span>'+'</div>'+'</li>'; 
+	    	$('.list-results').append($(content));
+		}
+	});
+
 });
-
 
 </script>
 </body>

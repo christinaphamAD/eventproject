@@ -195,13 +195,15 @@ div li .ui-btn-text {
 	/*background-image: url('../images/icon-down.png');*/
 }
 
-#map {
+#map1,
+#map2 {
 	background-image: url('../images/icon-map.png');
 	background-repeat: no-repeat;
 	background-position: center 1px;
 }
 
-#list {
+#list1,
+#list2 {
 	background-image: url('../images/icon-list.png');
 	background-repeat: no-repeat;
 	background-position: center 1px;

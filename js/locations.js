@@ -1,7 +1,10 @@
-var sites = [
-	['Mount Evans', 39.58108, -105.63535, 4, 'This is Mount Evans.'],
-	['Irving Homestead', 40.315939, -105.440630, 2, 'This is the Irving Homestead.'],
-	['Badlands National Park', 43.785890, -101.90175, 1, 'This is Badlands National Park'],
-	['Flatirons in the Spring', 39.99948, -105.28370, 3, 'These are the Flatirons in the spring.']
+// var sites = [
+// 	['Mount Evans', 39.58108, -105.63535, 4, 'This is Mount Evans.'],
+// 	['Irving Homestead', 40.315939, -105.440630, 2, 'This is the Irving Homestead.'],
+// 	['Badlands National Park', 43.785890, -101.90175, 1, 'This is Badlands National Park'],
+// 	['Flatirons in the Spring', 39.99948, -105.28370, 3, 'These are the Flatirons in the spring.']
 	
-];
+// ];
+
+
+var sites = {"Locations": [[1, "3 Michaels: Chabon, Pollan, Lewis", "The three authors talk people, places, and politics in a benefit for 826 Oakland.", "Literary", "http://www.eastbayexpress.com/ebx/3-michaels-chabon-pollan-lewis/Event?oid=3404547", "", 1355167800, 1355171400, "Roda Theatre 2025 Addison St., Berkeley (map)", 0, 0, "$100 ", 37.8715926, -122.272747], [2, "40 Years of Titlte IX", "A celebration of 40 Years of Title IX with objects, manuscript and pictorial material from The Bancroft Library", "Art Galleries", "http://www.eastbayexpress.com/ebx/40-years-of-title-ix/Event?oid=3393035", "", 1355133600, 1355158800, "Bancroft Library", 0, 0, "0", 37.8722704, -122.2587025], [3, "Architectural Tour: Berkeley City Club", "", "other", "http://www.eventbrite.com/event/4819586513/SRCH", "", 1356210000, 1356220800, "2315 Durant Ave., Berkeley, CA", null, null, "0.00", 37.867375, -122.262766], [4, "HONORING THE LEGENDARY REVEREND DARYL COLEY!!!", "", "music,religion", "http://celebratedaryl-SRCH.eventbrite.com", "http://ebmedia.eventbrite.com/s3-build/images/729975/44830182871/1/logo.JPG", 1359853200, 1359864000, "1400 8th St, Berkeley, CA", 211, 3, "150.00", 37.877776, -122.298875], [5, "Sycamore Slough String Band at the MONKEY HOUSE", "", "music,performances", "http://www.eventbrite.com/event/4704399987/SRCH", "", 1356750000, 1356760800, "", 10, 8, "11.54", 37.871593, -122.272747], [6, "University of California Catholic Conference 2013", "Ten universities. One universal church.", "religion,social", "http://uccc2013-SRCH.eventbrite.com", "http://ebmedia.eventbrite.com/s3-s3/eventlogos/38715476/4715455053-2.jpg", 1360947600, 1361217600, "2700 Dwight Way , Berkeley, CA", 6, 205, "59.02", 37.8656259, -122.253672]]}
