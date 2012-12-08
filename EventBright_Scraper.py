@@ -2,8 +2,8 @@ from lxml import etree
 import time
 import sqlite3
 
-url = "http://www.eventbrite.com/xml/event_search?app_key=NFCGVAJDWYUTNK4C4M&city=Berkeley&date=Future&max=100"
-source = etree.parse('EventBright_page1.xml')
+url = "http://www.eventbrite.com/xml/event_search?app_key=NFCGVAJDWYUTNK4C4M&city=San%20Francisco&date=Future&max=100&region=CA&page=10"
+source = etree.parse(url)
 
 ##csvFile = open('events.csv','a')
 conn = sqlite3.connect('event_finder.db')
