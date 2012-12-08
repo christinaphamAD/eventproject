@@ -47,6 +47,8 @@
 $( ".search-btn" ).bind( "click", function(event, ui) {
 	// var resultsHead = 'Results for '+ $('#address').val() +' ';
 	$('.search-results').empty().append($('#address').val());
+	
+	$('.list-results').empty();
 
   	for (var i = 0; i < sites.length; i++) {
 
