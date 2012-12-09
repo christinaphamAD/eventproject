@@ -13,6 +13,7 @@ EventFinder is a responsive mobile web application that finds your location and 
 ## Technologies Used
 * Code: HTML, CSS, Python, JavaScript, jQuery Mobile, JSONp, Google Maps
 * APIs: Created Own SQLite Database API, Eventbrite API
+* Bottle JSONp Client: http://artyprog.blogspot.com/2012/03/jsonp-with-framework-bottle.html
 
 ## Browser Support
 Chrome, Safari, Firefox, Safari Mobile
