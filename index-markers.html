@@ -12,13 +12,9 @@
 <!-- <script src="js/infobox.js"></script>
 <script src="js/markercluster.js"></script> -->
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.exp&sensor=false"></script>
-<script type="text/javascript"
-	src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/src/markerclusterer.js">
-</script>
-
 <script type="text/javascript">
 var infowindow = null;
-    $(document).ready(function () { initialize(); });
+    $(document).ready(function () { initialize();  });
 
     var geocoder;
     var map;
@@ -30,7 +26,6 @@ var infowindow = null;
 
       var mapOptions = {
         zoom: 13,
-		draggable:true,
         center: latlng,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
@@ -53,7 +48,7 @@ var infowindow = null;
         for (var i = 0; i < markers.Locations.length; i++) {
             var sites = markers.Locations[i];
             var contentString = 
-              '<div id="infoWin"><div id="siteNotice"></div><h5 class="infoWin-head">'+ sites[1] + '</h5><div class="infoWin-website"><a href="'+ sites[4] + '" target="_blank">Website</a></div><div class="infoWin-content"><p><strong>Address:</strong> ' + sites[8] + '</p><p><strong>Cost:</strong> ' + (sites[11]!=="0.00" ? '$'+sites[11] : 'Free') + '</p><p>' + sites[2] + '</p></div><div>' +
+              '<div class="infoWin"><div id="siteNotice"></div><h5 class="infoWin-head">'+ sites[1] + '</h5><div class="infoWin-website"><a href="'+ sites[4] + '" target="_blank">Website</a></div><div class="infoWin-content"><p><strong>Cost:</strong> ' + (sites[11]!=="0.00" ? '$'+sites[11] : 'Free') + '</p><p><strong>Starts</strong>: '+((new Date(parseInt(sites[6]+"000"))).toLocaleString())+ (sites[6]!=sites[7] ? '</p><strong>Ends</strong>: '+((new Date(parseInt(sites[7]+"000"))).toLocaleString()) : '') + '</p><p><strong>Address</strong>: ' + sites[8] + '</p><p class="description">' + sites[2] + '</p></div><div>' +
               '<span class="up-btn vote" data-id="'+sites[0]+'" id="up' + sites[0] + '">+'+(sites[9]!==null ? sites[9] : 0)+'</span>' + 
               '<span class="down-btn vote" data-id="'+sites[0]+'" id="down' + sites[0] + '">-'+(sites[10]!==null ? sites[10] : 0)+'</span>' +
             '</div></div>';
@@ -122,8 +117,10 @@ var infowindow = null;
 	</div>
 
 	<div data-role="content">
+		<form class='enter' data-ajax='false' onsubmit='$(".search-btn").trigger("click"); return false;'>
 		<input type="search" name="search-mini" id="address1" placeholder="Search" />
 		<input type="button" id="search-button" value="Search" data-inline="true" class="search-btn" data-ref="1" />
+		</form>
 
 		<div id="map_canvas" style="width: 100%; height: 400px;">
 
@@ -149,8 +146,10 @@ var infowindow = null;
 
   <div data-role="content" data-theme="a">
     <div id="search-fields">
+	<form class='enter' data-ajax='false' onsubmit='$(".search-btn2").trigger("click"); return false;'>
       <input type="search" name="search-mini" id="address2" value placeholder="Search" />
-      <input type="button" id="search-button" value="Search" data-inline="true" data-ref="2" class="search-btn" />
+      <input type="button" id="search-button" value="Search" data-inline="true" data-ref="2" class="search-btn search-btn2" />
+	</form>
     </div>
     <div style="margin-top:20px;">
       <h2 class="search-results"></h2>
@@ -182,21 +181,26 @@ $(document).on('pageinit',function(){
         // codeAddress(queryTerm);
         var resultsHead = 'Results for "'+ queryTerm +'"';
 
-        $('.search-results').empty().append(resultsHead);
         $('.list-results').empty();
+
+        if(typeof sites.Locations === "string"){
+          $('.search-results').empty().append('No results found for "'+queryTerm+'"');
+          return
+        }
+
+        $('.search-results').empty().append(resultsHead);
 
         for (var i = 0; i < sites.Locations.length; i++) {
           var eventSpot = sites.Locations[i];
-          var content = '<li class="ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-li-last ui-btn-up-a" data-corners="false" data-shadow="false" data-iconshadow="true" data-icon="arrow-r" data-iconpos="right" data-theme="a">'+'<h4>'+eventSpot[1]+'</h4>'+ '<p>'+eventSpot[2]+'</p>'+'<span class="ui-icon ui-icon-arrow-r ui-icon-shadow">'+'</span>'+'</li>'; 
+          var content = '<li class="ui-li-has-arrow ui-li ui-li-last ui-btn-up-a listview-entry" data-corners="false" data-shadow="false" data-iconshadow="true" data-icon="arrow-r" data-iconpos="right" data-theme="a"><div><div><h4 class="ui-li-heading">'+eventSpot[1]+'</h4><div class="voting-buttons">' +
+              '<span class="up-btn vote" data-id="'+eventSpot[0]+'" id="up' + eventSpot[0] + '">+'+(eventSpot[9]!==null ? eventSpot[9] : 0)+'</span>' + 
+              '<span class="down-btn vote" data-id="'+eventSpot[0]+'" id="down' + eventSpot[0] + '">-'+(eventSpot[10]!==null ? eventSpot[10] : 0)+'</span>' +
+            '</div></div></div><a class="ui-link-inherit" href="'+ eventSpot[4] + '" target="_blank">Website</a><p class="ui-li-desc"><strong>Cost:</strong> ' + (eventSpot[11]!=="0.00" ? '$'+eventSpot[11] : 'Free') + '</p><p class="ui-li-desc"><strong>Starts</strong>: '+((new Date(parseInt(eventSpot[6]+"000"))).toLocaleString())+ (eventSpot[6]!=eventSpot[7] ? '</p><p class="ui-li-desc"><strong>Ends</strong>: '+((new Date(parseInt(eventSpot[7]+"000"))).toLocaleString()) : '') + '</p><p class="ui-li-desc"><strong>Address</strong>: ' + eventSpot[8] + '</p><p class="ui-li-desc">'+eventSpot[2]+'</p>'+'<span class="ui-icon ui-icon-arrow-r ui-icon-shadow">'+'</span>'+'</li>'; 
           $('.list-results').append($(content));
         }
         setMarkers(map, sites);
       }
     });
-	  var markerClusterer = new MarkerClusterer(map, markers, {
-          maxZoom: 14,
-          gridSize: 20
-        });
   });
 
 
