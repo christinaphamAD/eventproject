@@ -73,7 +73,7 @@ h6 {
 }
 
 .ui-input-search {
-	width: 66%;
+	width: 50%;
 	border: 1px solid #CFCFCF;
 	margin: 0;
 	margin-bottom: 16px;
@@ -82,6 +82,11 @@ h6 {
 	background-repeat: no-repeat;
 	background-position: 7px center;
 	float: left;
+}
+
+.voting-buttons {
+	float:right;
+	margin:5px 0 0;
 }
 
 #address {
@@ -215,17 +220,17 @@ div li .ui-btn-text {
 
 .ui-li.listview-entry {
 	margin: 3px 0 ;
+	padding:10px;
 }
 
 .ui-li-desc {
-	white-space: normal;
 	line-height: 1.3em;
-	max-height: 100px;
 }
 
-.ui-li .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li {
+.ui-li .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li, .ui-link-inherit {
 	display: block;
 	padding: 0 0 5px 0;
+	font-size: .8em;
 }
 
 #map1,
