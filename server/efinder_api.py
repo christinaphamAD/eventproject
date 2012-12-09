@@ -40,12 +40,12 @@ install(JSONAPIPlugin())
 def static(path):
 	return static_file(path, root='static')
 
-@route('/json:json#[1-9]+#')
+@route('/json/<json>')
 def show_json(json):
 
 	conn = sqlite3.connect('event_finder.db')
 	c = conn.cursor()
-	c.execute("SELECT ID, Name, Description, Website_URL, Image_URL, Location FROM Events WHERE id LIKE ?", (json))
+	c.execute("SELECT ID, Name, Description, Category, Website_URL, Image_URL, Start_Date, End_Date, Location, Up_Votes, Down_Votes, Tickets, lat, lng FROM Events WHERE id LIKE ?", ((json),))
 	result = c.fetchall()
 	c.close()
 
