@@ -68,7 +68,7 @@ var infowindow = null;
               $.ajax({
                 url:'http://www.asian-central.com:8080/'+sites[0]+'/up', 
                 dataType:"jsonp",
-                success:function(data){
+                complete:function(data){
                   // Make sure it runs on the 8080 port and that it uses
                   // JSONP format for voting
                 }
@@ -80,7 +80,7 @@ var infowindow = null;
               $.ajax({
                 url:'http://www.asian-central.com:8080/'+sites[0]+'/down', 
                 dataType:"jsonp",
-                success:function(data){
+                complete:function(data){
                   // Make sure it runs on the 8080 port and that it uses
                   // JSONP format for voting
                 }
