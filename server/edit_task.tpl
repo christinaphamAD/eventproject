@@ -1,3 +1,22 @@
+<link rel="stylesheet" media="all" type="text/css" href="http://code.jquery.com/ui/1.9.1/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" media="all" type="text/css" href="static/jquery-ui-timepicker-addon.css" />
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.9.1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="static/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="static/jquery-ui-sliderAccess.js"></script>
+
+		<script type="text/javascript">
+			
+			$(function(){
+
+				$('#start').datetimepicker();
+				$('#end').datetimepicker();
+			
+			});
+			
+		</script>
+
 %#template for editing a task
 %#the template expects to receive a value for "no" as well a "old", the text of the selected ToDo item
 <p>Edit EventFinder Event with ID = {{no}}</p>
@@ -10,7 +29,10 @@ Name, Description, Category, Website_URL, Image_URL, Start_Date, End_Date, Locat
 <tr><td>User Name*:<br><input type="text" name="Name" value="{{old[0]}}" size="100" maxlength="100"></td></tr>
 <tr><td>Description*:<br><textarea name="Description" rows='10' cols='60'>{{old[1]}}</textarea></td></tr>
 <tr><td>Category*:<br><input type="text" name="Category" value="{{old[2]}}" size="100" maxlength="100"></td></tr>
-<tr><td>Website_URL*:<br><input type="text" name="Website_URL" value="{{old[3]}}" size="100" maxlength="100"></td></tr><tr><td>Image_URL*:<br><input type="text" name="Image_URL" value="{{old[4]}}" size="100" maxlength="100"></td></tr><tr><td>Start_Date*:<br><input type="text" name="Start_Date" value="{{old[5]}}" size="100" maxlength="100"></td></tr><tr><td>End_Date*:<br><input type="text" name="End_Date" value="{{old[6]}}" size="100" maxlength="100"></td></tr><tr><td>Location* ({{old[11]}},{{old[12]}}):<br><input type="text" name="Location" value="{{old[7]}}" size="100" maxlength="100"></td></tr><tr><td>Up_Votes*:<br><input type="text" name="Up_Votes" value="{{old[8]}}" size="100" maxlength="100"></td></tr><tr><td>Down_Votes*:<br><input type="text" name="Down_Votes" value="{{old[9]}}" size="100" maxlength="100"></td></tr><tr><td>Tickets*:<br><input type="text" name="Tickets" value="{{old[10]}}" size="100" maxlength="100"></td></tr>
+<tr><td>Website_URL*:<br><input type="text" name="Website_URL" value="{{old[3]}}" size="100" maxlength="100"></td></tr>
+<tr><td>Image_URL*:<br><input type="text" name="Image_URL" value="{{old[4]}}" size="100" maxlength="100"></td></tr>
+<tr><td>Start_Date*:<br><input type="text" id="start" name="Start_Date" value="{{old[5]}}" size="100" maxlength="100"></td></tr><tr><td>End_Date*:<br><input type="text" id="end" name="End_Date" value="{{old[6]}}" size="100" maxlength="100"></td></tr>
+<tr><td>Location* ({{old[11]}},{{old[12]}}):<br><input type="text" name="Location" value="{{old[7]}}" size="100" maxlength="100"></td></tr><tr><td>Up_Votes*:<br><input type="text" name="Up_Votes" value="{{old[8]}}" size="100" maxlength="100"></td></tr><tr><td>Down_Votes*:<br><input type="text" name="Down_Votes" value="{{old[9]}}" size="100" maxlength="100"></td></tr><tr><td>Tickets*:<br><input type="text" name="Tickets" value="{{old[10]}}" size="100" maxlength="100"></td></tr>
 </table>
 
 
@@ -19,3 +41,5 @@ Name, Description, Category, Website_URL, Image_URL, Start_Date, End_Date, Locat
 <input type="submit" value="cancel" onclick="location.replace('../'); return false;">
 <!-- &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="delete" value="delete"> //-->
 </form>
+
+%include footer_template

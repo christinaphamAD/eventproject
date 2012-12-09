@@ -73,7 +73,7 @@ def show_json(search):
 
 	conn = sqlite3.connect('event_finder.db')
 	c = conn.cursor()
-	c.execute("SELECT ID, Name, Description, Category, Website_URL, Image_URL, Start_Date, End_Date, Location, Up_Votes, Down_Votes, Tickets, lat, lng FROM Events WHERE Name || Description LIKE ?", ('%'+search+'%',))
+	c.execute("SELECT ID, Name, Description, Category, Website_URL, Image_URL, Start_Date, End_Date, Location, Up_Votes, Down_Votes, Tickets, lat, lng FROM Events WHERE Name || Description || Category || Location || Tickets LIKE ?", ('%'+search+'%',))
 	result = c.fetchall()
 	c.close()
 

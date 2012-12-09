@@ -5,6 +5,7 @@ from bottle import route, run, debug, template, request, validate, static_file, 
 import random
 import json
 import urllib
+import time
 
 # Import URL Parse/Scraper
 # import urllib
@@ -50,8 +51,8 @@ def new_item():
 		cat = request.GET.get('Category', '').strip()
 		url = request.GET.get('Website_URL', '').strip()
 		img_url = request.GET.get('Image_URL', '').strip()
-		start = request.GET.get('Start_Date', '').strip()
-		end = request.GET.get('End_Date', '').strip()
+		start = str(time.mktime(time.strptime(request.GET.get('Start_Date', ''),'%m/%d/%Y %H:%M')))
+		end = str(time.mktime(time.strptime(request.GET.get('End_Date', ''),'%m/%d/%Y %H:%M')))
 		location = request.GET.get('Location', '').strip()
 		up = 0
 		down = 0
@@ -110,8 +111,8 @@ def edit_item(no):
 		cat = request.GET.get('Category', '').strip()
 		url = request.GET.get('Website_URL', '').strip()
 		img_url = request.GET.get('Image_URL', '').strip()
-		start = request.GET.get('Start_Date', '').strip()
-		end = request.GET.get('End_Date', '').strip()
+		start = str(time.mktime(time.strptime(request.GET.get('Start_Date', ''),'%m/%d/%Y %H:%M')))
+		end = str(time.mktime(time.strptime(request.GET.get('End_Date', ''),'%m/%d/%Y %H:%M')))
 		location = request.GET.get('Location', '').strip()
 		up = request.GET.get('Up_Votes', '').strip()
 		down = request.GET.get('Down_Votes', '').strip()
