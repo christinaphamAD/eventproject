@@ -14,7 +14,7 @@
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script type="text/javascript">
 var infowindow = null;
-    $(document).ready(function () { initialize();  });
+    $(document).ready(function () { initialize(); });
 
     var geocoder;
     var map;
@@ -56,6 +56,7 @@ var infowindow = null;
             var marker = new google.maps.Marker({
                 position: siteLatLng,
                 map: map,
+				draggable: true,
                 title: sites[1],
                 zIndex: sites[0]+1,
                 html: contentString
@@ -68,7 +69,7 @@ var infowindow = null;
               $.ajax({
                 url:'http://www.asian-central.com:8080/'+sites[0]+'/up', 
                 dataType:"jsonp",
-                complete:function(data){
+                success:function(data){
                   // Make sure it runs on the 8080 port and that it uses
                   // JSONP format for voting
                 }
@@ -80,7 +81,7 @@ var infowindow = null;
               $.ajax({
                 url:'http://www.asian-central.com:8080/'+sites[0]+'/down', 
                 dataType:"jsonp",
-                complete:function(data){
+                success:function(data){
                   // Make sure it runs on the 8080 port and that it uses
                   // JSONP format for voting
                 }
@@ -104,6 +105,22 @@ var infowindow = null;
     //       }
     //     });
     //   };
+	
+	function geocode_find() {
+	// Check for geolocation support
+if (navigator.geolocation) {
+	// Use method getCurrentPosition to get coordinates
+	navigator.geolocation.getCurrentPosition(function (position) {
+		// Access them accordingly
+		// alert(position.coords.latitude + ", " + position.coords.longitude);
+		// map.setCenter(position.coords.latitude + "," + position.coords.longitude);
+		// map.setZoom(14);
+	});
+} else {
+		alert("no");
+}
+	}
+	
 </script>
 
 </head>
@@ -170,6 +187,7 @@ var infowindow = null;
 <script type="text/javascript">
 $(document).on('pageinit',function(){
   $( ".search-btn" ).bind( "click", function(event, ui) {
+	geocode_find();
     var refBtn = $(this).data("ref");
     var queryTerm = $('#address'+refBtn).val()
     $.ajax({
