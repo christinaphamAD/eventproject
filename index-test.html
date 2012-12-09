@@ -56,6 +56,7 @@ var infowindow = null;
             var marker = new google.maps.Marker({
                 position: siteLatLng,
                 map: map,
+				draggable: true,
                 title: sites[1],
                 zIndex: sites[0]+1,
                 html: contentString
@@ -137,7 +138,7 @@ if (navigator.geolocation) {
 		<input type="button" id="search-button" value="Search" data-inline="true" class="search-btn" data-ref="1" />
 		</form>
 		
-		<div id="map_canvas" style="width: 100%; height: 400px;">
+		<div id="map_canvas" style="min-width: 240px; width: 100%; height: 400px;">
 
 		</div>	
 	</div>
