@@ -141,6 +141,54 @@ def show_json():
 	else:
 		return {'Locations': result}
 
+@route('/<id>/up')
+def plus(id):
+
+	conn = sqlite3.connect('event_finder.db')
+	c = conn.cursor()
+	c.execute("SELECT ID, Up_Votes FROM Events WHERE ID LIKE ?", ((id),))
+	result = c.fetchall()
+	
+	up = result[0][1]
+	
+	if up == None:
+		up = 0
+	
+	up = up+1
+	
+	c.execute("UPDATE Events SET Up_Votes = ? WHERE id LIKE ?", (up,(id),))
+	conn.commit()
+	c.close()
+
+	if not result:
+		return {'Locations':'This item number does not exist!'}
+	else:
+		return {'Result': result}
+
+@route('/<id>/down')
+def down(id):
+
+	conn = sqlite3.connect('event_finder.db')
+	c = conn.cursor()
+	c.execute("SELECT ID, Down_Votes FROM Events WHERE id LIKE ?", ((id),))
+	result = c.fetchall()
+	
+	down = result[0][1]
+	
+	if down == None:
+		down = 0
+	
+	down = down+1
+	
+	c.execute("UPDATE Events SET Down_Votes = ? WHERE id LIKE ?", (down,(id),))
+	conn.commit()
+	c.close()
+
+	if not result:
+		return {'Locations':'This item number does not exist!'}
+	else:
+		return {'Result': result}
+
 
 @error(403)
 def mistake403(code):
