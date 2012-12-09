@@ -155,7 +155,7 @@ div li .ui-btn-text {
 
 .vote {
 	min-width: 30px;
-	padding: 2px 3px 0;
+	padding: 3px 3px 0;
 	text-align: center;
 	font-size: .75em;
 	color: white;
@@ -166,7 +166,12 @@ div li .ui-btn-text {
 }
 
 .infoWin {
-	max-width: 400px;
+	max-width: 300px;
+}
+
+.infoWin .description {
+	line-height: 1.2em;
+	padding-bottom: 5px;
 }
 
 .infoWin-website a {
@@ -178,7 +183,7 @@ div li .ui-btn-text {
 }
 
 .infoWin-content p {
-	margin: 5px 0;
+	margin: 2px 0;
 }
 
 .up-btn {
@@ -206,6 +211,21 @@ div li .ui-btn-text {
 	background: no-repeat center center, linear-gradient(to bottom,  #a90329 0%,#8f0222 44%,#6d0019 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a90329', endColorstr='#6d0019',GradientType=0 );
 	/*background-image: url('../images/icon-down.png');*/
+}
+
+.ui-li.listview-entry {
+	margin: 3px 0 ;
+}
+
+.ui-li-desc {
+	white-space: normal;
+	line-height: 1.3em;
+	max-height: 100px;
+}
+
+.ui-li .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li {
+	display: block;
+	padding: 0 0 5px 0;
 }
 
 #map1,
