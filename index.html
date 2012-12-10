@@ -8,166 +8,142 @@
 
 <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 <script src="js/jquery.mobile.js"></script>
-<script src="js/locations.js"></script>
+<!-- <script src="js/locations.js"></script> -->
 <!-- <script src="js/infobox.js"></script>
 <script src="js/markercluster.js"></script> -->
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script type="text/javascript">
 var infowindow = null;
-    $(document).ready(function () { initialize();  });
+    $(document).ready(function () { initialize(); geocode_find(); });
 
+    var geocoder;
+    var map;
+    var markerList = [];
+    var sites;
     function initialize() {
+      geocoder = new google.maps.Geocoder();
+      var latlng = new google.maps.LatLng(37.8656259, -122.253672);
 
-        var centerMap = new google.maps.LatLng(39.828175, -98.5795);
+      var mapOptions = {
+        zoom: 13,
+        center: latlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
 
-        var myOptions = {
-            zoom: 4,
-            center: centerMap,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
+      map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 
-        var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-
-        setMarkers(map, sites);
-	    infowindow = new google.maps.InfoWindow({
-                content: "loading..."
-            });
-
-        var bikeLayer = new google.maps.BicyclingLayer();
-		bikeLayer.setMap(map);
+      //setMarkers(map, sites);
+      infowindow = new google.maps.InfoWindow({
+              content: "loading..."
+      });
     }
 
-    var sites = [
-	['Mount Evans', 39.58108, -105.63535, 4, 'This is Mount Evans.'],
-	['Irving Homestead', 40.315939, -105.440630, 2, 'This is the Irving Homestead.'],
-	['Badlands National Park', 43.785890, -101.90175, 1, 'This is Badlands National Park'],
-	['Flatirons in the Spring', 39.99948, -105.28370, 3, 'These are the Flatirons in the spring.']
-];
-
-
-
     function setMarkers(map, markers) {
+        for (var i=0; i<markerList.length; i++) {
+          markerList[i].setMap(null);
+        }
 
-        for (var i = 0; i < markers.length; i++) {
-            var sites = markers[i];
-            var siteLatLng = new google.maps.LatLng(sites[1], sites[2]);
+        markerList.length=0;
+
+        for (var i = 0; i < markers.Locations.length; i++) {
+            var sites = markers.Locations[i];
+            var contentString = 
+              '<div class="infoWin"><div id="siteNotice"></div><h5 class="infoWin-head">'+ sites[1] + '</h5><div class="infoWin-website"><a href="'+ sites[4] + '" target="_blank">Website</a></div><div class="infoWin-content"><p><strong>Cost:</strong> ' + (sites[11]!=="0.00" ? '$'+sites[11] : 'Free') + '</p><p><strong>Starts</strong>: '+((new Date(parseInt(sites[6]+"000"))).toLocaleString())+ (sites[6]!=sites[7] ? '</p><strong>Ends</strong>: '+((new Date(parseInt(sites[7]+"000"))).toLocaleString()) : '') + '</p><p><strong><a rel="external" href= "http://maps.google.com/?daddr='+sites[12]+','+sites[13]+'">Address</a></strong>: ' + sites[8] + '</p><p class="description">' + sites[2] + ' | <a rel="external" href= "http://maps.google.com/?daddr='+sites[12]+','+sites[13]+'">Directions</a></p></div><div>' +
+              '<span class="up-btn vote" data-id="'+sites[0]+'" id="up' + sites[0] + '">+'+(sites[9]!==null ? sites[9] : 0)+'</span>' + 
+              '<span class="down-btn vote" data-id="'+sites[0]+'" id="down' + sites[0] + '">-'+(sites[10]!==null ? sites[10] : 0)+'</span>' +
+            '</div></div>';
+            var siteLatLng = new google.maps.LatLng(sites[12], sites[13]);
             var marker = new google.maps.Marker({
                 position: siteLatLng,
                 map: map,
-                title: sites[0],
-                zIndex: sites[3],
-                html: sites[4]
+				draggable: true,
+                title: sites[1],
+                zIndex: sites[0]+1,
+                html: contentString
+            });
+            markerList.push(marker);
+
+            // VOTING BUTTONS
+
+            $('#up-'+sites[0]).bind('click', function(event, ui){
+              var button = $(this);
+              console.log(this);
+              $.ajax({
+                url:'http://www.asian-central.com:8080/'+button.data("id")+'/up', 
+                dataType:"jsonp",
+                success:function(data){
+                  button.html('+'+data.Result[0][1]);
+                }
+              })
             });
 
-            var contentString = "Some content";
+            $('#down-'+sites[0]).bind('click', function(event, ui){
+              var button = this;
+              $.ajax({
+                url:'http://www.asian-central.com:8080/'+button.data("id")+'/down', 
+                dataType:"jsonp",
+                success:function(data){
+                  button.html('-'+data.Result[0][1]);
+                }
+              })
+            });
+
 
             google.maps.event.addListener(marker, "click", function () {
-                alert(this.html);
                 infowindow.setContent(this.html);
                 infowindow.open(map, this);
+                google.maps.event.addListener(infowindow, 'domready', function() {
+                $('#up'+sites[0]).bind('click', function(event, ui){
+                var button = $(this);
+                console.log(this);
+                $.ajax({
+                  url:'http://www.asian-central.com:8080/'+button.data("id")+'/up', 
+                  dataType:"jsonp",
+                  success:function(data){
+                    button.html('+'+data.Result[0][1]);
+                  }
+                })
+              });
+
+              $('#down'+sites[0]).bind('click', function(event, ui){
+                var button = this;
+                $.ajax({
+                  url:'http://www.asian-central.com:8080/'+button.data("id")+'/down', 
+                  dataType:"jsonp",
+                  success:function(data){
+                    button.html('-'+data.Result[0][1]);
+                  }
+                })
+            });
+            });
             });
         }
     }
 
-// var infowindow = null;
-// $(document).ready(function () { initialize();  });
+    // function codeAddress(address) {
+    //     geocoder.geocode( { 'address': address}, function(results, status) {
+    //       if (status == google.maps.GeocoderStatus.OK) {
+    //         map.setCenter(results[0].geometry.location);
+    //       } else {
+    //         alert('Geocode was not successful for the following reason: ' + status);
+    //       }
+    //     });
+    //   };
 
-//   //   function initialize() {
+		function geocode_find() {
+	// Check for geolocation support
+if (navigator.geolocation) {
+	// Use method getCurrentPosition to get coordinates
+	navigator.geolocation.getCurrentPosition(function (position) {
+		// Access them accordingly
+		// alert(position.coords.latitude + ", " + position.coords.longitude);
+		map.setZoom(14);
+		map.setCenter(new google.maps.LatLng(position.coords.latitude,position.coords.longitude));
 
-//   //       var centerMap = new google.maps.LatLng(39.828175, -98.5795);
-
-//   //       var myOptions = {
-//   //           zoom: 6,
-//   //           center: centerMap,
-//   //           mapTypeId: google.maps.MapTypeId.ROADMAP
-//   //       }
-
-//   //       var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-
-//   //       setMarkers(map, sites);
-// 	 //    infowindow = new google.maps.InfoWindow({
-//   //               content: "loading..."
-//   //           });
-
-//   //       var bikeLayer = new google.maps.BicyclingLayer();
-// 		// bikeLayer.setMap(map);
-
-
-//   //   }
-
-// var geocoder;
-// var map;
-// function initialize() {
-// 	geocoder = new google.maps.Geocoder();
-// 	var latlng = new google.maps.LatLng(-34.397, 150.644);
-
-// 	var mapOptions = {
-// 	  zoom: 11,
-// 	  center: latlng,
-// 	  mapTypeId: google.maps.MapTypeId.ROADMAP
-// 	}
-
-// 	map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-
-// 	setMarkers(map, sites);
-// 	infowindow = new google.maps.InfoWindow({
-// 	        content: "loading..."
-// 	});
-// }
-
-//     function setMarkers(map, markers) {
-
-//         for (var i = 0; i < markers.length; i++) {
-//             var sites = markers[i];
-//             var siteLatLng = new google.maps.LatLng(sites[1], sites[2]);
-//             var marker = new google.maps.Marker({
-//                 position: siteLatLng,
-//                 map: map,
-//                 title: sites[0],
-//                 zIndex: sites[3],
-//                 html: sites[4]
-//             });
-
-//         // var ib = new InfoBox(myOptions);
-//         // ib.open(theMap, marker);
-
-//             var contentString = 
-// 	            '<div id="infoWin">'+
-// 	    			'<div id="siteNotice">'+
-// 	    			'</div>'+
-// 	    			'<h3 class="infoWin-head">'+ sites.Locations[0][1] + '</h3>'+
-// 	    			'<div class="infoWin-content">'+
-// 			    		'<p>' + sites.Locations[0][3] + '</p>' + 
-// 			    	'</div>'+
-// 			    	'<div>' +
-// 			    		'<div>' + 
-// 			    			'<span class="up-btn vote"></span>' + 
-// 			    		'</div>' + 
-// 			    		'<div>' + 
-// 			    			'<span class="down-btn vote"></span>' +
-// 			    		'</div>' +
-// 			    	'</div>' +
-// 			    '</div>';
-
-
-//             google.maps.event.addListener(marker, "click", function () {
-//                 // alert(this.html);
-//                 infowindow.setContent(contentString);
-//                 infowindow.open(map, this);
-//             });
-//         }
-//     }
-
-//     function codeAddress() {
-//         var address = document.getElementById('address').value;
-//         geocoder.geocode( { 'address': address}, function(results, status) {
-//           if (status == google.maps.GeocoderStatus.OK) {
-//             map.setCenter(results[0].geometry.location);
-//           } else {
-//             alert('Geocode was not successful for the following reason: ' + status);
-//           }
-//         });
-//       }
+	});
+}
+	}
+	
 </script>
 
 </head>
@@ -177,14 +153,16 @@ var infowindow = null;
 <div data-role="page" id="home">
 	<div data-role="header" data-id="header" data-position="fixed" class="ui-header ui-bar" id="header-bar">
 		<h1>EventFinder</h1>
-		<a href="index.html" id="filter-icon" class="ui-btn-right"></a>
+		<!-- <a href="index.html" id="filter-icon" class="ui-btn-right"></a> -->
 	</div>
 
 	<div data-role="content">
-		<input type="search" name="search-mini" id="address" value placeholder="Search" />
-		<input type="button" id="search-button" value="Search" data-inline="true" class="search-btn" onclick="codeAddress()" />
-
-		<div id="map_canvas" style="width: 100%; height: 400px;">
+		<form class='enter' data-ajax='false' onsubmit='$(".search-btn").trigger("click"); return false;'>
+		<input type="search" name="search-mini" id="address1" placeholder="Search" />
+		<input type="button" id="search-button" value="Search" data-inline="true" class="search-btn" data-ref="1" />
+		</form>
+		
+		<div id="map_canvas" style="min-width: 240px; width: 100%; height: 300px;">
 
 		</div>	
 	</div>
@@ -192,12 +170,95 @@ var infowindow = null;
 	<div data-role="footer" data-id="footer1" data-position="fixed" class="ui-footer">
 		<div data-role="navbar" class="ui-navbar" role="navigation">
 			<ul>
-				<li class="btn-active"><a href="#" class="ui-state-persist" id="map">Map</a></li>
-				<li><a href="listview.html" class="ui-state-persist" id="list">List</a></li>
+				<li class="btn-active"><a href="#" class="ui-state-persist" id="map1">Map</a></li>
+				<li><a href="#two" class="ui-state-persist" id="list1">List</a></li>
 			</ul>
 		</div>
 	</div>
 </div>
+
+<div data-role="page" id="two">
+
+  <div data-role="header" data-id="header" data-position="fixed" class="ui-header ui-bar" id="header-bar">
+    <h1>EventFinder</h1>
+    <!-- <a href="index.html" id="filter-icon" data-icon="gear" class="ui-btn-right"></a> -->
+  </div>
+
+  <div data-role="content" data-theme="a">
+    <div id="search-fields">
+      <form class='enter' data-ajax='false' onsubmit='$(".search-btn2").trigger("click"); return false;'>
+	  <input type="search" name="search-mini" id="address2" value placeholder="Search" />
+      <input type="button" id="search-button" value="Search" data-inline="true" data-ref="2" class="search-btn search-btn2" />
+	  </form>
+    </div>
+    <div style="margin-top:20px;">
+      <h2 class="search-results"></h2>
+      <ul data-role="listview" class="list-results">
+      </ul>
+    </div>
+  </div><!-- /content -->
+  
+  <div data-role="footer" data-id="footer1" data-position="fixed" class="ui-footer">
+    <div data-role="navbar" class="ui-navbar" role="navigation">
+      <ul>
+        <li><a href="#home" class="ui-state-persist" id="map2">Map</a></li>
+        <li class="btn-active"><a href="#" class="ui-state-persist" id="list2">List</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+$(document).on('pageinit',function(){
+  $( ".search-btn" ).bind( "click", function(event, ui) {
+    var refBtn = $(this).data("ref");
+    var queryTerm = $('#address'+refBtn).val()
+    $.ajax({
+      url:'http://asian-central.com:8080/json/s/'+queryTerm, 
+      dataType: "jsonp",
+      success:function(data){
+        console.log(data);
+        sites = data;
+        // codeAddress(queryTerm);
+        var resultsHead = 'Results for "'+ queryTerm +'"';
+
+        $('.list-results').empty();
+
+        if(typeof sites.Locations === "string"){
+          $('.search-results').empty().append('No results found for "'+queryTerm+'"');
+          return
+        }
+
+        $('.search-results').empty().append(resultsHead);
+
+        for (var i = 0; i < sites.Locations.length; i++) {
+          var eventSpot = sites.Locations[i];
+		  var x = eventSpot[12]+.0009
+		  var y = eventSpot[13]-.0009
+          var content = '<li class="ui-li-has-arrow ui-li ui-li-last ui-btn-up-a listview-entry" data-corners="false" data-shadow="false" data-iconshadow="true" data-icon="arrow-r" data-iconpos="right" data-theme="a"><div><div><h4 class="ui-li-heading">'+eventSpot[1]+'</h4><div class="voting-buttons">' +
+              '<span class="up-btn vote" data-id="'+eventSpot[0]+'" id="up-' + eventSpot[0] + '">+'+(eventSpot[9]!==null ? eventSpot[9] : 0)+'</span>' + 
+              '<span class="down-btn vote" data-id="'+eventSpot[0]+'" id="down-' + eventSpot[0] + '">-'+(eventSpot[10]!==null ? eventSpot[10] : 0)+'</span>' +
+            '</div></div></div><a class="ui-link-inherit" href="'+ eventSpot[4] + '" target="_blank">Website</a><p class="ui-li-desc"><strong>Cost:</strong> ' + (eventSpot[11]!=="0.00" ? '$'+eventSpot[11] : 'Free') + '</p><p class="ui-li-desc"><strong>Starts</strong>: '+((new Date(parseInt(eventSpot[6]+"000"))).toLocaleString())+ (eventSpot[6]!=eventSpot[7] ? '</p><p class="ui-li-desc"><strong>Ends</strong>: '+((new Date(parseInt(eventSpot[7]+"000"))).toLocaleString()) : '') + '</p><p class="ui-li-desc"><a href="index.html" onclick="map.setZoom(17); map.setCenter(new google.maps.LatLng('+eventSpot[12]+','+eventSpot[13]+'));"><strong>Address</strong>: ' + eventSpot[8] + '</a> | <a rel="external" href= "http://maps.google.com/?daddr='+eventSpot[12]+','+eventSpot[13]+'">Directions</a></p><p class="ui-li-desc">'+eventSpot[2]+'</p>'+'<span class="ui-icon ui-icon-arrow-r ui-icon-shadow">'+'</span>'+'</li>'; 
+          $('.list-results').append($(content));
+        }
+        setMarkers(map, sites);
+      }
+    });
+  });
+
+
+  $('#map2').bind("click", function(event, ui){
+    $('#address1').val($('#address2').val());
+  });
+
+  $("#list1").bind("click", function(event, ui){
+    $('#address2').val($('#address1').val());
+  });
+
+  $('#address2').val($('#address1').val());
+
+});
+
+</script>
 
 </body>
 </html>
