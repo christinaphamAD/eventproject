@@ -8,7 +8,7 @@ EventFinder is a responsive mobile web application that finds your location and 
 * [Peter Nguyen](http://www.petertnguyen.com) - Database Adminstration/Design, Server Environment Set Up, JSONp API Development
 
 ## Demo Version
- [Need Link, Guys!]()
+http://bit.ly/YSMosv
 
 ## Technologies Used
 * Code: HTML, CSS, Python, JavaScript, jQuery Mobile, JSONp, Google Maps
