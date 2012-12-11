@@ -48,10 +48,7 @@ var infowindow = null;
         for (var i = 0; i < markers.Locations.length; i++) {
             var sites = markers.Locations[i];
             var contentString = 
-              '<div class="infoWin"><div id="siteNotice"></div><h5 class="infoWin-head">'+ sites[1] + '</h5><div class="infoWin-website"><a href="'+ sites[4] + '" target="_blank">Website</a></div><div class="infoWin-content"><p><strong>Cost:</strong> ' + (sites[11]!=="0.00" ? '$'+sites[11] : 'Free') + '</p><p><strong>Starts</strong>: '+((new Date(parseInt(sites[6]+"000"))).toLocaleString())+ (sites[6]!=sites[7] ? '</p><strong>Ends</strong>: '+((new Date(parseInt(sites[7]+"000"))).toLocaleString()) : '') + '</p><p><strong><a rel="external" href= "http://maps.google.com/?daddr='+sites[12]+','+sites[13]+'">Address</a></strong>: ' + sites[8] + '</p><p class="description">' + sites[2] + ' | <a rel="external" href= "http://maps.google.com/?daddr='+sites[12]+','+sites[13]+'">Directions</a></p></div><div>' +
-              '<span class="up-btn vote" data-id="'+sites[0]+'" id="up' + sites[0] + '">+'+(sites[9]!==null ? sites[9] : 0)+'</span>' + 
-              '<span class="down-btn vote" data-id="'+sites[0]+'" id="down' + sites[0] + '">-'+(sites[10]!==null ? sites[10] : 0)+'</span>' +
-            '</div></div>';
+              '<div class="infoWin"><div id="siteNotice"></div><h5 class="infoWin-head">'+ sites[1] + '</h5><div class="infoWin-website"><a href="'+ sites[4] + '" target="_blank">Website</a></div><div class="infoWin-content"><p><strong>Cost:</strong> ' + (sites[11]!=="0.00" ? '$'+sites[11] : 'Free') + '</p><p><strong>Starts</strong>: '+((new Date(parseInt(sites[6]+"000"))).toLocaleString())+ (sites[6]!=sites[7] ? '</p><strong>Ends</strong>: '+((new Date(parseInt(sites[7]+"000"))).toLocaleString()) : '') + '</p><p><strong><a rel="external" href= "http://maps.google.com/?daddr='+sites[12]+','+sites[13]+'">Address</a></strong>: ' + sites[8] + '</p><p class="description">' + sites[2] + ' | <a rel="external" href= "http://maps.google.com/?daddr='+sites[12]+','+sites[13]+'">Directions</a></p></div></div>';
             var siteLatLng = new google.maps.LatLng(sites[12], sites[13]);
             var marker = new google.maps.Marker({
                 position: siteLatLng,
