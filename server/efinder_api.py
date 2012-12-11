@@ -155,18 +155,15 @@ def plus(id):
 		up = 0
 	
 	up = up+1
-
-	idd = result[0][0]
-	ans = [[idd,up]]
 	
 	c.execute("UPDATE Events SET Up_Votes = ? WHERE id LIKE ?", (up,(id),))
 	conn.commit()
 	c.close()
-	
+
 	if not result:
 		return {'Locations':'This item number does not exist!'}
 	else:
-		return {'Result': ans}
+		return {'Result': result}
 
 @route('/<id>/down')
 def down(id):
@@ -182,8 +179,6 @@ def down(id):
 		down = 0
 	
 	down = down+1
-	idd = result[0][0]
-	ans = [[idd,down]]
 	
 	c.execute("UPDATE Events SET Down_Votes = ? WHERE id LIKE ?", (down,(id),))
 	conn.commit()
@@ -192,7 +187,7 @@ def down(id):
 	if not result:
 		return {'Locations':'This item number does not exist!'}
 	else:
-		return {'Result': ans}
+		return {'Result': result}
 
 
 @error(403)
