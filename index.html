@@ -75,6 +75,7 @@ var infowindow = null;
                   button.html('+'+data.Result[0][1]);
                 }
               })
+              $(this).unbind('click').addClass('disabled-button');
             });
 
             $('#down-'+sites[0]).bind('click', function(event, ui){
@@ -87,6 +88,7 @@ var infowindow = null;
                   button.html('-'+data.Result[0][1]);
                 }
               })
+              $(this).unbind('click').addClass('disabled-button');
             });
 
 
