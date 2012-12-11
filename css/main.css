@@ -10,6 +10,8 @@ html, body {
 	font-size: 16px;
 	line-height: 1.5em;
 	background-color: #FEFEFE;
+	background-image: url('../images/light_toast.png');
+	background-repeat: repeat;
 	padding: 0;
 }
 
@@ -40,6 +42,7 @@ h6 {
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight: 100;
 	letter-spacing: 1px;
+	margin:0.3em 0 0.4em;
 }
 
 .ui-bar {
@@ -48,6 +51,7 @@ h6 {
 	background-color: #25234A;
 	text-transform: uppercase;
 	letter-spacing: 1px;
+	padding:0;
 }
 
 .ui-header .ui-title, 
@@ -160,11 +164,11 @@ div li .ui-btn-text {
 
 .vote {
 	min-width: 30px;
-	padding: 3px 3px 0;
+	padding: 2px 1px 0;
 	text-align: center;
 	font-size: .75em;
 	color: white;
-	height: 30px;
+	height: 28px;
 	border-radius: 5px;
 	cursor: pointer;
 	float: left;
@@ -221,6 +225,10 @@ div li .ui-btn-text {
 .ui-li.listview-entry {
 	margin: 3px 0 ;
 	padding:10px;
+}
+
+.disabled-button {
+	background-color: #CCCCCC;
 }
 
 .ui-li-desc {
