@@ -72,18 +72,19 @@ var infowindow = null;
                 url:'http://www.asian-central.com:8080/'+button.data("id")+'/up', 
                 dataType:"jsonp",
                 success:function(data){
-                  button.html('+'+data.Result[0][1]);
+                  button.html('+'+data.Result[1]);
                 }
               })
             });
 
             $('#down-'+sites[0]).bind('click', function(event, ui){
-              var button = this;
+              var button = $(this);
+              console.log(this);
               $.ajax({
                 url:'http://www.asian-central.com:8080/'+button.data("id")+'/down', 
                 dataType:"jsonp",
                 success:function(data){
-                  button.html('-'+data.Result[0][1]);
+                  button.html('-'+data.Result[1]);
                 }
               })
             });
@@ -114,9 +115,9 @@ var infowindow = null;
                     button.html('-'+data.Result[0][1]);
                   }
                 })
+              });
             });
-            });
-            });
+          });
         }
     }
 

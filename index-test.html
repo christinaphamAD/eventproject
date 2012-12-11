@@ -238,7 +238,7 @@ $(document).on('pageinit',function(){
           var content = '<li class="ui-li-has-arrow ui-li ui-li-last ui-btn-up-a listview-entry" data-corners="false" data-shadow="false" data-iconshadow="true" data-icon="arrow-r" data-iconpos="right" data-theme="a"><div><div><h4 class="ui-li-heading">'+eventSpot[1]+'</h4><div class="voting-buttons">' +
               '<span class="up-btn vote" data-id="'+eventSpot[0]+'" id="up-' + eventSpot[0] + '">+'+(eventSpot[9]!==null ? eventSpot[9] : 0)+'</span>' + 
               '<span class="down-btn vote" data-id="'+eventSpot[0]+'" id="down-' + eventSpot[0] + '">-'+(eventSpot[10]!==null ? eventSpot[10] : 0)+'</span>' +
-            '</div></div></div><a class="ui-link-inherit" href="'+ eventSpot[4] + '" target="_blank">Website</a><p class="ui-li-desc"><strong>Cost:</strong> ' + (eventSpot[11]!=="0.00" ? '$'+eventSpot[11] : 'Free') + '</p><p class="ui-li-desc"><strong>Starts</strong>: '+((new Date(parseInt(eventSpot[6]+"000"))).toLocaleString())+ (eventSpot[6]!=eventSpot[7] ? '</p><p class="ui-li-desc"><strong>Ends</strong>: '+((new Date(parseInt(eventSpot[7]+"000"))).toLocaleString()) : '') + '</p><p class="ui-li-desc"><a href="index-test.html" onclick="map.setZoom(17); map.setCenter(new google.maps.LatLng('+eventSpot[12]+','+eventSpot[13]+'));"><strong>Address</strong>: ' + eventSpot[8] + '</a> | <a rel="external" href= "http://maps.google.com/?daddr='+eventSpot[12]+','+eventSpot[13]+'">Directions</a></p><p class="ui-li-desc">'+eventSpot[2]+'</p>'+'<span class="ui-icon ui-icon-arrow-r ui-icon-shadow">'+'</span>'+'</li>'; 
+            '</div></div></div><a class="ui-link-inherit" href="'+ eventSpot[4] + '" target="_blank">Website</a><p class="ui-li-desc"><strong>Cost:</strong> ' + (eventSpot[11]!=="0.00" ? '$'+eventSpot[11] : 'Free') + '</p><p class="ui-li-desc"><strong>Starts</strong>: '+((new Date(parseInt(eventSpot[6]+"000"))).toLocaleString())+ (eventSpot[6]!=eventSpot[7] ? '</p><p class="ui-li-desc"><strong>Ends</strong>: '+((new Date(parseInt(eventSpot[7]+"000"))).toLocaleString()) : '') + '</p><p class="ui-li-desc"><a href="index.html" onclick="map.setZoom(17); map.setCenter(new google.maps.LatLng('+eventSpot[12]+','+eventSpot[13]+'));"><strong>Address</strong>: ' + eventSpot[8] + '</a> | <a rel="external" href= "http://maps.google.com/?daddr='+eventSpot[12]+','+eventSpot[13]+'">Directions</a></p><p class="ui-li-desc">'+eventSpot[2]+'</p>'+'<span class="ui-icon ui-icon-arrow-r ui-icon-shadow">'+'</span>'+'</li>'; 
           $('.list-results').append($(content));
         }
         setMarkers(map, sites);
@@ -256,8 +256,6 @@ $(document).on('pageinit',function(){
   });
 
   $('#address2').val($('#address1').val());
-
-
 
 });
 
