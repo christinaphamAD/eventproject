@@ -5,7 +5,7 @@ EventFinder is a responsive mobile web application that finds your location and 
 ## Project Team and Roles
 * [Christina Pham](http://www.microcake.org) - Layout Design, Javascript/jQuery Mobile Development, JSONp Interface for Google Maps  
 * [Morgan Wallace]() - Database Creation, Data Scraping, Geocoder, Data Entry
-* [Peter Nguyen](http://www.petertnguyen.com) - Database Adminstration/Design, Server Environment Set Up, JSONp API Development
+* [Peter Nguyen](http://www.petertnguyen.com) - Database Adminstration/Design, Python and Server Environment Set Up, JSONp API Development
 
 ## Demo Version
 http://people.ischool.berkeley.edu/~cppham/eventfinder/
